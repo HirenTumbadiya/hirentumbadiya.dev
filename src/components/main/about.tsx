@@ -51,19 +51,19 @@ export default function About() {
               <div className="flex items-center gap-2">
                 <CheckCircle className="h-5 w-5 text-primary" />
                 <span>
-                  <strong>Name:</strong> John Doe
+                  <strong>Name:</strong> Hiren Tumbadiya
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle className="h-5 w-5 text-primary" />
                 <span>
-                  <strong>Email:</strong> john@example.com
+                  <strong>Email:</strong> tumbadiyahiren@gmail.com
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle className="h-5 w-5 text-primary" />
                 <span>
-                  <strong>Location:</strong> San Francisco, CA
+                  <strong>Location:</strong> Porbandar, IN
                 </span>
               </div>
               <div className="flex items-center gap-2">
@@ -90,6 +90,7 @@ export default function About() {
               <div className="flex flex-wrap gap-2">
                 {[
                   "Web Development",
+                  "Mobile Development",
                   "UI/UX Design",
                   "Open Source",
                   "Tech Writing",
