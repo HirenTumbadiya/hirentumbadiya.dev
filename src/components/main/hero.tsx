@@ -8,21 +8,43 @@ import Image from "next/image";
 
 export default function Hero() {
   const [text, setText] = useState("");
-  const fullText = "Frontend Developer";
 
-  useEffect(() => {
-    let currentIndex = 0;
-    const interval = setInterval(() => {
-      if (currentIndex <= fullText.length) {
-        setText(fullText.substring(0, currentIndex));
-        currentIndex++;
-      } else {
-        clearInterval(interval);
-      }
-    }, 100);
+useEffect(() => {
+    const roles = [
+  "Frontend Engineer",
+  "Backend Engineer",
+  "Fullstack Developer",
+  "Software Engineer",
+];
 
-    return () => clearInterval(interval);
-  }, []);
+
+  let roleIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+  const typingSpeed = 100;
+
+  const type = () => {
+    const currentRole = roles[roleIndex];
+    if (isDeleting) {
+      setText(currentRole.substring(0, charIndex--));
+    } else {
+      setText(currentRole.substring(0, charIndex++));
+    }
+
+    if (!isDeleting && charIndex === currentRole.length + 1) {
+      setTimeout(() => {
+        isDeleting = true;
+      }, 1000);
+    } else if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      roleIndex = (roleIndex + 1) % roles.length;
+    }
+
+    setTimeout(type, isDeleting ? 50 : typingSpeed);
+  };
+
+  type();
+}, []);
 
   return (
     <section id="home" className="relative py-20 md:py-32 overflow-hidden">

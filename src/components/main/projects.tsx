@@ -84,52 +84,50 @@ export default function Projects() {
       githubLink: "https://github.com/HirenTumbadiya/DevTalk",
       category: "fullstack",
     },
+    // {
+    //   id: 4,
+    //   title: "Fabbrica Clone",
+    //   description:
+    //     "A clone of Fabbrica, an online store with a clean, modern UI and interactive product features.",
+    //   image: null,
+    //   tags: ["react", "css", "html"],
+    //   demoLink: "https://example.com", // Replace with actual link
+    //   githubLink: "https://github.com",
+    //   category: "frontend",
+    // },
     {
       id: 4,
-      title: "Fabbrica Clone",
+      title: "Eduflex",
       description:
-        "A clone of Fabbrica, an online store with a clean, modern UI and interactive product features.",
-      image: null,
-      tags: ["react", "css", "html"],
-      demoLink: "https://example.com", // Replace with actual link
-      githubLink: "https://github.com",
+        "EduFlex is a compact React template project for a stock market education website. It offers user-friendly resources like video tutorials, articles, and quizzes to help individuals learn about investing in stocks. Users can create accounts, track their progress, and engage in community discussions.",
+      image: "/images/eduflex.png",
+      tags: ["react", "react router", "tailwind", "css", "react dom"],
+      demoLink: null,
+      githubLink: "https://github.com/HirenTumbadiya/eduflex",
       category: "frontend",
     },
-    {
-      id: 5,
-      title: "Eduflex Education Website",
-      description:
-        "A responsive education website with course listings, testimonials, and blog integration.",
-      image: null,
-      tags: ["react", "css", "html"],
-      demoLink: "https://example.com", // Replace with actual link
-      githubLink: "https://github.com", // Replace with actual link
-      category: "frontend",
-    },
-    {
-      id: 6,
-      title: "AnimeHub",
-      description:
-        "A project to display an anime list with detailed information about each anime.",
-      image: null,
-      tags: ["react", "api", "css"],
-      demoLink: "https://example.com", // Replace with actual link
-      githubLink: "https://github.com", // Replace with actual link
-      category: "frontend",
-    },
-
-    // Backend Projects
-    {
-      id: 7,
-      title: "Youtube Clone",
-      description:
-        "A backend-focused project that simulates a YouTube clone's server and video upload functionality.",
-      image: null,
-      tags: ["node", "express", "mongodb"],
-      demoLink: "https://example.com", // Replace with actual link
-      githubLink: "https://github.com", // Replace with actual link
-      category: "backend",
-    },
+    // {
+    //   id: 6,
+    //   title: "AnimeHub",
+    //   description:
+    //     "A project to display an anime list with detailed information about each anime.",
+    //   image: null,
+    //   tags: ["react", "api", "css"],
+    //   demoLink: "https://example.com", // Replace with actual link
+    //   githubLink: "https://github.com", // Replace with actual link
+    //   category: "frontend",
+    // },
+    // {
+    //   id: 7,
+    //   title: "Youtube Clone",
+    //   description:
+    //     "A backend-focused project that simulates a YouTube clone's server and video upload functionality.",
+    //   image: null,
+    //   tags: ["node", "express", "mongodb"],
+    //   demoLink: "https://example.com", // Replace with actual link
+    //   githubLink: "https://github.com", // Replace with actual link
+    //   category: "backend",
+    // },
   ];
 
   const filteredProjects =
@@ -224,7 +222,7 @@ export default function Projects() {
                 />
               )}
             </Button>
-            <Button
+            {/* <Button
               variant={filter === "backend" ? "default" : "outline"}
               onClick={() => setFilter("backend")}
               className="relative overflow-hidden group"
@@ -237,7 +235,7 @@ export default function Projects() {
                   transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                 />
               )}
-            </Button>
+            </Button> */}
             <Button
               variant={filter === "fullstack" ? "default" : "outline"}
               onClick={() => setFilter("fullstack")}
