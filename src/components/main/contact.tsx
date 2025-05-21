@@ -1,62 +1,76 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { Mail, MapPin, Phone, Send } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-// import { useToast } from "@/hooks/use-toast"
+import { useRef, useState } from "react";
+import { Mail, MapPin, Phone, Send } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner";
+import { useInView, motion } from "motion/react";
 
 export default function Contact() {
-//   const { toast } = useToast()
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     subject: "",
     message: "",
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
     // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    // toast({
-    //   title: "Message sent!",
-    //   description: "Thanks for reaching out. I'll get back to you soon.",
-    // })
+    toast("Thanks for reaching out. I'll get back to you soon.");
 
     setFormData({
       name: "",
       email: "",
       subject: "",
       message: "",
-    })
-    setIsSubmitting(false)
-  }
+    });
+    setIsSubmitting(false);
+  };
 
   return (
-    <section id="contact" className="py-16 bg-muted/30">
+    <section id="contact" className="py-16 bg-muted/30" ref={sectionRef}>
       <div className="container px-4 md:px-6">
-        <div className="flex flex-col items-center text-center mb-12">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Get In Touch</h2>
-          <div className="w-20 h-1 bg-primary mt-4 mb-6"></div>
+        <motion.div
+          className="flex flex-col items-center text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+            Get In Touch
+          </h2>
+          <motion.div
+            className="w-20 h-1 bg-primary mt-4 mb-6"
+            initial={{ width: 0 }}
+            animate={isInView ? { width: "5rem" } : { width: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          ></motion.div>
           <p className="text-muted-foreground max-w-[700px] mx-auto">
-            Have a project in mind or want to discuss potential opportunities? Feel free to reach out!
+            Have a project in mind or want to discuss potential opportunities?
+            Feel free to reach out!
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid gap-8 md:grid-cols-3 lg:gap-12 max-w-5xl mx-auto">
           <div className="space-y-6">
@@ -67,7 +81,9 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="font-medium mb-1">Phone</h3>
-                  <p className="text-sm text-muted-foreground">+1 (555) 123-4567</p>
+                  <p className="text-sm text-muted-foreground">
+                    +91 96383-80927
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -79,7 +95,9 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="font-medium mb-1">Email</h3>
-                  <p className="text-sm text-muted-foreground">john@example.com</p>
+                  <p className="text-sm text-muted-foreground">
+                    tumbadiyahiren@gmail.com
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -91,7 +109,9 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="font-medium mb-1">Location</h3>
-                  <p className="text-sm text-muted-foreground">San Francisco, CA</p>
+                  <p className="text-sm text-muted-foreground">
+                    Gujarat, India
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -149,10 +169,17 @@ export default function Contact() {
                       required
                     />
                   </div>
-                  <Button type="submit" className="w-full" disabled={isSubmitting}>
+                  <Button
+                    type="submit"
+                    className="w-full"
+                    disabled={isSubmitting}
+                  >
                     {isSubmitting ? (
                       <span className="flex items-center gap-2">
-                        <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                        <svg
+                          className="animate-spin h-4 w-4"
+                          viewBox="0 0 24 24"
+                        >
                           <circle
                             className="opacity-25"
                             cx="12"
@@ -184,5 +211,5 @@ export default function Contact() {
         </div>
       </div>
     </section>
-  )
+  );
 }

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "motion/react";
+import { useRef, useState } from "react";
+import { motion, useInView } from "motion/react";
 import {
   Database,
   Globe,
@@ -14,6 +14,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Skills() {
   const [activeTab, setActiveTab] = useState("frontend");
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
 
   const skillCategories = {
     frontend: [
@@ -23,6 +25,8 @@ export default function Skills() {
       { name: "HTML5 & CSS3", level: 90 },
       { name: "Redux", level: 75 },
       { name: "Tailwind CSS", level: 85 },
+      { name: "Next.js", level: 85 },
+      { name: "React-Native", level: 85 },
     ],
     backend: [
       { name: "Node.js", level: 85 },
@@ -33,17 +37,15 @@ export default function Skills() {
       { name: "Websockets", level: 65 },
     ],
     database: [
-      { name: "MongoDB", level: 85 },
-      { name: "Mongoose", level: 80 },
-      { name: "SQL Basics", level: 60 },
-      { name: "Redis", level: 50 },
-      { name: "Data Modeling", level: 75 },
-      { name: "Aggregation", level: 70 },
+      { name: "MongoDB", level: 75 },
+      { name: "PostgreSQL", level: 70 },
+      { name: "Data Modeling", level: 60 },
+      { name: "Aggregation", level: 65 },
     ],
     tools: [
       { name: "Git & GitHub", level: 85 },
-      { name: "Docker", level: 65 },
-      { name: "AWS Basics", level: 60 },
+      { name: "Docker", level: 40 },
+      { name: "AWS (Basics)", level: 50 },
       { name: "CI/CD", level: 70 },
       { name: "Jest", level: 75 },
       { name: "Webpack", level: 65 },
@@ -58,25 +60,35 @@ export default function Skills() {
   };
 
   return (
-    <section id="skills" className="py-16">
+    <section id="skills" className="py-16" ref={sectionRef}>
       <div className="container px-4 md:px-6">
-        <div className="flex flex-col items-center text-center mb-12">
+        <motion.div
+          className="flex flex-col items-center text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
             My Skills
           </h2>
-          <div className="w-20 h-1 bg-primary mt-4 mb-6"></div>
+          <motion.div
+            className="w-20 h-1 bg-primary mt-4 mb-6"
+            initial={{ width: 0 }}
+            animate={isInView ? { width: "5rem" } : { width: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          ></motion.div>
           <p className="text-muted-foreground max-w-[700px] mx-auto">
             Here are my technical skills and proficiency levels in various
             technologies of the MERN stack and beyond.
           </p>
-        </div>
+        </motion.div>
 
         <Tabs
           defaultValue="frontend"
           className="w-full max-w-4xl mx-auto"
           onValueChange={setActiveTab}
         >
-          <TabsList className="grid grid-cols-2 md:grid-cols-4 mb-8">
+          <TabsList className="grid grid-cols-2 md:grid-cols-4 mb-8" style={{width: "100%"}}>
             <TabsTrigger value="frontend" className="flex items-center gap-2">
               {icons.frontend} Frontend
             </TabsTrigger>

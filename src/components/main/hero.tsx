@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import { ArrowDown, Github, Linkedin, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Hero() {
   const [text, setText] = useState("");
-  const fullText = "Software Engineer";
+  const fullText = "Frontend Developer";
 
   useEffect(() => {
     let currentIndex = 0;
@@ -38,9 +39,10 @@ export default function Hero() {
                 <span className="animate-blink">|</span>
               </p>
               <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                Passionate about building robust web applications with MongoDB,
-                Express, React, and Node.js. With 2.5+ years of experience
-                creating seamless user experiences.
+                I craft performant, scalable web and mobile apps using React,
+                Next.js, and React Native. With 2.5+ years of experience, I
+                focus on delivering clean UIs and seamless user experiences
+                from dashboards to real-time systems.
               </p>
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
@@ -83,8 +85,7 @@ export default function Hero() {
           </div>
           <div className="flex items-center justify-center">
             <div className="relative w-[280px] h-[280px] md:w-[400px] md:h-[400px] rounded-full overflow-hidden border-4 border-primary">
-              {/* <img src="/placeholder.svg?height=400&width=400" alt="John Doe" className="object-cover w-full h-full" /> */}
-              <div className="w-full h-full" />
+              <Image src={"/images/hero.png"} alt="Hiren Tumbadiya" fill />
             </div>
           </div>
         </div>
