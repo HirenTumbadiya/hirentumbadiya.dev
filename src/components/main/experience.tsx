@@ -44,8 +44,7 @@ export default function Experience() {
   const education = [
     {
       id: 1,
-      degree:
-        "Bachelor of Science in Electronics and Communication Engineering",
+      degree: "Bachelor of Engineering (B.E.) in Electronics & Communication",
       institution: "Gujarat Technological University",
       duration: "2019 - 2023",
       description: [
