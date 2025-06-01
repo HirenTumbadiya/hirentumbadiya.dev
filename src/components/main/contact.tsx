@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { useInView, motion } from "motion/react";
+import emailjs from "@emailjs/browser";
 
 export default function Contact() {
   const sectionRef = useRef(null);
@@ -34,17 +35,30 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const result = await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        {
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+      );
 
-    toast("Thanks for reaching out. I'll get back to you soon.");
+      if (result.status === 200) {
+        toast("Thanks for reaching out. I'll get back to you soon.");
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        toast("Failed to send message. Try again later.");
+      }
+    } catch (error) {
+      console.error(error);
+      toast("Something went wrong. Please try again.");
+    }
 
-    setFormData({
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
-    });
     setIsSubmitting(false);
   };
 
