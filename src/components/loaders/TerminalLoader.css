@@ -1,0 +1,87 @@
+.terminal {
+  background: #000;
+  color: #0f0;
+  font-family: 'Courier New', monospace;
+  padding: 20px;
+  width: 100vw;
+  height: 100vh;
+  border: 2px solid #0f0;
+  box-shadow: 0 0 20px #0f0;
+  overflow: hidden;
+  margin: 0;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+}
+
+.output {
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
+.output::after {
+  content: '_';
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.glitch {
+  position: relative;
+  animation: glitch 0.5s linear infinite;
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: 2px 0 red, -2px 0 blue;
+    transform: translate(0, 0);
+  }
+  20% {
+    text-shadow: -2px 0 red, 2px 0 blue;
+    transform: translate(-1px, 1px);
+  }
+  40% {
+    text-shadow: 2px 0 red, -2px 0 blue;
+    transform: translate(1px, -1px);
+  }
+  60% {
+    text-shadow: -2px 0 red, 2px 0 blue;
+    transform: translate(-1px, 0);
+  }
+  80% {
+    text-shadow: 2px 0 red, -2px 0 blue;
+    transform: translate(1px, 0);
+  }
+  100% {
+    text-shadow: -2px 0 red, 2px 0 blue;
+    transform: translate(0, 0);
+  }
+}
+
+.breaking {
+  animation: terminalCrash 0.4s steps(2) infinite;
+}
+
+@keyframes terminalCrash {
+  0% { transform: scale(1) rotate(0); opacity: 1; }
+  25% { transform: scale(1.02) rotate(1deg); opacity: 0.9; }
+  50% { transform: scale(0.98) rotate(-1deg); opacity: 0.7; }
+  75% { transform: scale(1.05) rotate(2deg); opacity: 0.5; }
+  100% { transform: scale(0.95) rotate(-2deg); opacity: 0.3; }
+}
+
+.fade-out {
+  animation: fadeOut 0.5s forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: scale(1.2);
+    filter: blur(10px);
+  }
+}
+ 
