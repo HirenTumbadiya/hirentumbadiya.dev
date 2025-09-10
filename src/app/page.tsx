@@ -11,7 +11,7 @@ import {
 } from "@/components/main";
 import { AnimatedBackground } from "@/components/main/animated-background";
 import TerminalLoader from "@/components/loaders/terminal-loader";
-import { useState } from "react";
+import { CSSProperties, useState } from "react";
 
 export default function Home() {
   const [showLoader, setShowLoader] = useState(true);
@@ -33,6 +33,10 @@ export default function Home() {
     );
   }
 
+  const maskStyle: CSSProperties | undefined = reveal
+    ? { maskImage: "radial-gradient(circle at 50% 50%, transparent var(--r), black calc(var(--r) + 1px))" }
+    : undefined;
+
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
       <AnimatedBackground />
@@ -43,7 +47,7 @@ export default function Home() {
             ? "[--r:0%] animate-[reveal_1.2s_ease-out_forwards]"
             : ""
         }
-        style={{ maskImage: reveal ? "radial-gradient(circle at 50% 50%, transparent var(--r), black calc(var(--r) + 1px))" as any : undefined }}
+        style={maskStyle}
       >
         <Hero />
         <About />

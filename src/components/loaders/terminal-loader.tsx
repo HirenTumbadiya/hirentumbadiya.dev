@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import styles from './TerminalLoader.module.css';
 
 const lines = [
@@ -17,11 +17,28 @@ type TerminalLoaderProps = {
 };
 
 const TerminalLoader = ({ onComplete }: TerminalLoaderProps) => {
-  const outputRef = useRef(null);
-  const terminalRef = useRef(null);
+  const outputRef = useRef<HTMLPreElement | null>(null);
+  const terminalRef = useRef<HTMLDivElement | null>(null);
   const [lineIndex, setLineIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const intervalRef = useRef<number | null>(null);
+
+  const crashEffect = useCallback(() => {
+    if (terminalRef.current) {
+      terminalRef.current.classList.add(styles.breaking);
+      if (outputRef.current) {
+        outputRef.current.innerHTML += `\n\n> SYSTEM FAILURE DETECTED\n> Rebooting...`;
+      }
+    }
+
+    window.setTimeout(() => {
+      terminalRef.current?.classList.add(styles.fadeOut);
+    }, 1200);
+
+    window.setTimeout(() => {
+      onComplete?.();
+    }, 2000);
+  }, [onComplete]);
 
   useEffect(() => {
     const type = () => {
@@ -38,12 +55,14 @@ const TerminalLoader = ({ onComplete }: TerminalLoaderProps) => {
           ? `<span class=\"${styles.glitch}\">${char}</span>`
           : char;
 
-        // @ts-expect-error: ref to pre element
-        outputRef.current.innerHTML += span as unknown as string;
+        if (outputRef.current) {
+          outputRef.current.innerHTML += span as unknown as string;
+        }
         setCharIndex((i) => i + 1);
       } else {
-        // @ts-expect-error: ref to pre element
-        outputRef.current.innerHTML += '\n';
+        if (outputRef.current) {
+          outputRef.current.innerHTML += '\n';
+        }
         setLineIndex((i) => i + 1);
         setCharIndex(0);
       }
@@ -53,26 +72,7 @@ const TerminalLoader = ({ onComplete }: TerminalLoaderProps) => {
     return () => {
       if (intervalRef.current) window.clearInterval(intervalRef.current);
     };
-  }, [lineIndex, charIndex]);
-
-  const crashEffect = () => {
-    if (terminalRef.current) {
-      // @ts-expect-error: DOM classList
-      terminalRef.current.classList.add(styles.breaking);
-      // @ts-expect-error: ref to pre element
-      outputRef.current.innerHTML += `\n\n> SYSTEM FAILURE DETECTED\n> Rebooting...`;
-    }
-
-    // Fade out and notify completion
-    window.setTimeout(() => {
-      // @ts-expect-error: DOM classList
-      terminalRef.current?.classList.add(styles.fadeOut);
-    }, 1200);
-
-    window.setTimeout(() => {
-      onComplete?.();
-    }, 2000);
-  };
+  }, [lineIndex, charIndex, crashEffect]);
 
   return (
     <div className={styles.terminal} ref={terminalRef}>
