@@ -23,7 +23,7 @@ export default function Header() {
   const handleResumeClick = () => {
     toast("Your resume download has started");
     const link = document.createElement("a");
-    link.href = "/files/tumbadiya_hiren.pdf";
+    link.href = "/files/hiren_tumbadiya.pdf";
     link.download = "resume.pdf";
     link.click();
   };
@@ -48,11 +48,10 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-        isScrolled
-          ? "bg-background/80 backdrop-blur-md shadow-sm"
-          : "bg-transparent"
-      }`}
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled
+        ? "bg-background/80 backdrop-blur-md shadow-sm"
+        : "bg-transparent"
+        }`}
     >
       <div className="container flex h-16 items-center justify-between px-4 md:px-6">
         <Link
@@ -72,7 +71,7 @@ export default function Header() {
               <span className="absolute left-1/2 bottom-0 h-0.5 w-0 bg-primary transition-all duration-300 group-hover:left-0 group-hover:w-full" />
             </Link>
           ))}
-          <Button onClick={handleResumeClick} variant="default">
+          <Button onClick={handleResumeClick} variant="default" className="cursor-pointer">
             Resume
           </Button>
         </nav>

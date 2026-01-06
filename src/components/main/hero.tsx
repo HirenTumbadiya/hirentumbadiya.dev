@@ -5,46 +5,55 @@ import { ArrowDown, Github, Linkedin, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
+import { DirectionalButton } from "@/components/ui/directional-button";
 
-export default function Hero() {
+
+export default function Hero({ startAnimation = true }: { startAnimation?: boolean }) {
   const [text, setText] = useState("");
 
-useEffect(() => {
+  useEffect(() => {
+    if (!startAnimation) return;
+
     const roles = [
-  "Frontend Engineer",
-  "Backend Engineer",
-  "Fullstack Developer",
-  "Software Engineer",
-];
+      "Frontend Engineer",
+      "Backend Engineer",
+      "Fullstack Developer",
+      "Software Engineer",
+    ];
 
+    let roleIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    const typingSpeed = 100;
+    let timer: NodeJS.Timeout;
 
-  let roleIndex = 0;
-  let charIndex = 0;
-  let isDeleting = false;
-  const typingSpeed = 100;
+    const type = () => {
+      const currentRole = roles[roleIndex];
+      if (isDeleting) {
+        setText(currentRole.substring(0, charIndex--));
+      } else {
+        setText(currentRole.substring(0, charIndex++));
+      }
 
-  const type = () => {
-    const currentRole = roles[roleIndex];
-    if (isDeleting) {
-      setText(currentRole.substring(0, charIndex--));
-    } else {
-      setText(currentRole.substring(0, charIndex++));
-    }
+      if (!isDeleting && charIndex === currentRole.length + 1) {
+        timer = setTimeout(() => {
+          isDeleting = true;
+          type();
+        }, 1000);
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        roleIndex = (roleIndex + 1) % roles.length;
+        timer = setTimeout(type, 50);
+      } else {
+        timer = setTimeout(type, isDeleting ? 50 : typingSpeed);
+      }
+    };
 
-    if (!isDeleting && charIndex === currentRole.length + 1) {
-      setTimeout(() => {
-        isDeleting = true;
-      }, 1000);
-    } else if (isDeleting && charIndex === 0) {
-      isDeleting = false;
-      roleIndex = (roleIndex + 1) % roles.length;
-    }
+    type();
 
-    setTimeout(type, isDeleting ? 50 : typingSpeed);
-  };
+    return () => clearTimeout(timer);
+  }, [startAnimation]);
 
-  type();
-}, []);
 
   return (
     <section id="home" className="relative py-20 md:py-32 overflow-hidden">
@@ -61,19 +70,19 @@ useEffect(() => {
                 <span className="animate-blink">|</span>
               </p>
               <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                I craft performant, scalable web and mobile apps using React,
-                Next.js, and React Native. With 2.5+ years of experience, I
-                focus on delivering clean UIs and seamless user experiences
-                from dashboards to real-time systems.
+                I craft high-performance web and mobile applications using React, Next.js,
+                React Native, Node.js, and Rust. With 3+ years of experience, I focus on clean
+                UI, seamless interactions, and scalable systems from real-time dashboards to
+                production-grade backends.
               </p>
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
-              <Button asChild size="lg">
-                <Link href="#contact">Hire Me</Link>
-              </Button>
-              <Button variant="outline" size="lg">
-                <Link href="#projects">View Projects</Link>
-              </Button>
+              <Link href="#contact">
+                <DirectionalButton size="lg" className="w-full">Hire Me</DirectionalButton>
+              </Link>
+              <Link href="#projects">
+                <DirectionalButton variant="default" size="lg" className="w-full">View Projects</DirectionalButton>
+              </Link>
             </div>
             <div className="flex items-center gap-4 mt-4">
               <Link
