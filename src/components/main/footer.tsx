@@ -3,13 +3,7 @@ import { useState } from "react";
 import { Github, Linkedin, Mail, Twitter } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Playfair_Display } from "next/font/google";
 import { motion } from "motion/react";
-
-const playfair_display = Playfair_Display({
-  subsets: ["latin"],
-  weight: ["700"],
-});
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
