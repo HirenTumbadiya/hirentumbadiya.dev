@@ -124,9 +124,6 @@ export default function Footer() {
               maskImage: isHovered
                 ? `radial-gradient(circle 250px at ${mousePosition.x}px ${mousePosition.y}px, black, transparent)`
                 : "radial-gradient(circle 0px at 0px 0px, black, transparent)",
-              WebkitMaskImage: isHovered
-                ? `radial-gradient(circle 250px at ${mousePosition.x}px ${mousePosition.y}px, black, transparent)`
-                : "radial-gradient(circle 0px at 0px 0px, black, transparent)",
             }}
             transition={{ type: "tween", ease: "backOut", duration: 0.2 }}
           >
